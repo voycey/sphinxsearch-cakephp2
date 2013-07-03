@@ -3,6 +3,7 @@ I spent a good few hours googling up on how to get this working so here is the f
 
 
 * First install Sphinx
+* Get sphinxapi.php from the sphinx distribution and place it in app/vendors.
 * Setup an SQL Query for each index (my sphinx.conf is attached)
 * Restart searchd (searchd --stop && searchd)
 * Run the indexer
