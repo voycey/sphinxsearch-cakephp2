@@ -6,8 +6,8 @@ I spent a good few hours googling up on how to get this working so here is the f
 * Get sphinxapi.php from the sphinx distribution and place it in app/vendors.
 * Setup an SQL Query for each index (my sphinx.conf is attached)
 * Restart searchd (searchd --stop && searchd)
-* Run the indexer
-* Test on the command line with search "phrase"
+* Run the indexer (indexer --all)
+* Test on the command line (search "test")
 * Install this behaviour into your CakePHP app
 * Example search controller function is below using paginate
 * Use a GET method for your form in the view otherwise pagination will lose the search term
