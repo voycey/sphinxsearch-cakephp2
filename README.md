@@ -9,36 +9,44 @@ I spent a good few hours googling up on how to get this working so here is the f
 * Run the indexer
 * Test on the command line with search "phrase"
 * Install this behaviour into your CakePHP app
-* Example search controller function is below using paginate.
-
+* Example search controller function is below using paginate
+* Use a GET method for your form in the view otherwise pagination will lose the search term
 
 ```php
 public function search() {
-            if($this->request->is('post')) {
-                $term = $this->request->data['Search']['term'];
-                $sphinx = array('matchMode' => 'SPH_MATCH_ALL', 'sortMode' => array('SPH_SORT_EXTENDED' => '@relevance DESC'));
-                $paginate = array(
-                    'limit' => 10,
-                    'contain' => array(
-                        'User.id',
-                        'User.first_name',
-                        'User.last_name',
-                        'User.email',
-                        'UserDetail.photo',
-                    ),
-                    'fields'  => array(
-                        'id', 'title', 'body', 'image', 'comment_count', 'upvote_count'
-                    ),
-                    'conditions' => array(),
-                    'order' => array('Post.created' => 'desc'),
-                    'sphinx' => $sphinx,
-                    'search' => $term
-                );
+            $term = $this->request->query['term'];
+            $sphinx = array('matchMode' => 'SPH_MATCH_ALL', 'sortMode' => array('SPH_SORT_EXTENDED' => '@relevance DESC'));
+            $paginate = array(
+                'limit' => 30,
+                //'order' => array('upvote_count desc'),
+                'contain' => array(
+                    'Upvote',
+                    'User.id',
+                    'User.first_name',
+                    'User.last_name',
+                    'User.email',
+                    'UserDetail.photo',
+                    'UserDetail.company',
+                    'Category.id',
+                    'Category.name',
+                    'Type.name'
+                ),
+                'fields'  => array(
+                    'id', 'title', 'body', 'image', 'comment_count', 'upvote_count', 'files', 'explore', 'implement', 'is70','is20','is10', 'free', 'slug', 'created', 'sponsored'
+                ),
+                'conditions' => array(),
+                'order' => array('Post.sponsored' => 'desc', 'Post.created' => 'desc', 'Post.upvote_count' => 'desc'),
+                'sphinx' => $sphinx,
+                'search' => $term
+            );
 
-                $this->paginate = $paginate;
-                $this->set('posts', $this->paginate());
-            }
+            $this->paginate = $paginate;
+
+            //$results = $this->Post->find('all', array('search' => $term, 'limit'=>10, 'sphinx' => $sphinx));
+            $this->set('categories', $this->Post->Category->find('all', array('recursive' => -1, 'fields' => array('id','name'))));
+            $this->set('posts', $this->paginate());
         }
+
 ```
 
 
