@@ -11,11 +11,12 @@ I spent a good few hours googling up on how to get this working so here is the f
 * Install this behaviour into your CakePHP app
 * Example search controller function is below using paginate
 * Use a GET method for your form in the view otherwise pagination will lose the search term
+* You can search a specific index by adding in 'index' => array('<index name>') into the sphinx array (I am searching the idx_posts index)
 
 ```php
 public function search() {
             $term = $this->request->query['term'];
-            $sphinx = array('matchMode' => 'SPH_MATCH_ALL', 'sortMode' => array('SPH_SORT_EXTENDED' => '@relevance DESC'));
+            $sphinx = array('matchMode' => 'SPH_MATCH_ALL', 'sortMode' => array('SPH_SORT_EXTENDED' => '@relevance DESC'), 'index' => array('idx_posts'));
             $paginate = array(
                 'limit' => 30,
                 //'order' => array('upvote_count desc'),
