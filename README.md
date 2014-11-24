@@ -19,7 +19,6 @@ public function search() {
             $sphinx = array('matchMode' => 'SPH_MATCH_ALL', 'sortMode' => array('SPH_SORT_EXTENDED' => '@relevance DESC'), 'index' => array('idx_posts'));
             $paginate = array(
                 'limit' => 30,
-                //'order' => array('upvote_count desc'),
                 'contain' => array(
                     'Upvote',
                     'User.id',
@@ -43,7 +42,6 @@ public function search() {
 
             $this->paginate = $paginate;
 
-            //$results = $this->Post->find('all', array('search' => $term, 'limit'=>10, 'sphinx' => $sphinx));
             $this->set('categories', $this->Post->Category->find('all', array('recursive' => -1, 'fields' => array('id','name'))));
             $this->set('posts', $this->paginate());
         }
