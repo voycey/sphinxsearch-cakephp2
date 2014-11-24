@@ -1,4 +1,4 @@
-#Sphinx Search behaviour for CakePHP 2.3
+#Sphinx Search behaviour for CakePHP 2.x
 I spent a good few hours googling up on how to get this working so here is the fruits of my labour:
 
 
