@@ -1,3 +1,6 @@
+## This repository is no longer maintained
+Please see https://github.com/voycey/cakephp-sphinxsearch for Sphinx Plugins for CakePHP 2.x and 3.x
+
 #Sphinx Search behaviour for CakePHP 2.x
 I spent a good few hours googling up on how to get this working so here is the fruits of my labour:
 
